@@ -18,7 +18,7 @@ body {
 
 #start-screen {
     /* 배경 이미지 설정 */
-    background-image: url('images/pixelbg.jpg'); /* 이미지 경로를 실제 경로로 변경하세요 */
+    background-image: url('images/pixelbg.webp'); /* 이미지 경로를 실제 경로로 변경하세요 */
     background-size: cover; /* 이미지를 화면에 꽉 채우기 */
     background-position: center; /* 이미지를 중앙에 위치 */
     background-repeat: no-repeat; /* 이미지 반복 방지 */
