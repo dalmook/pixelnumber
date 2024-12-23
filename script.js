@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadProblem(index) {
         const problem = selectedProblems[index];
         problemCounter.textContent = `문제 ${index + 1} / ${selectedProblems.length}`;
-        targetNumberContainer.textContent = `목표 숫자: ${problem.targetNumber}`;
+        targetNumberContainer.textContent = ''; // 텍스트 제거
         createTargetNumberGrid(problem.targetPattern);
         createGrid(problem.grid.rows, problem.grid.columns);
         createOptions(problem.options);
@@ -168,12 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 옵션 생성 함수
+    // 옵션 생성 함수 (옵션 이름 제거)
     function createOptions(options) {
         optionsContainer.innerHTML = '';
         options.forEach(option => {
             const btn = document.createElement('button');
             btn.classList.add('option');
+            // btn.textContent = option.name; // 옵션 이름 제거
             btn.dataset.id = option.id;
 
             // 옵션 내의 작은 그리드 생성
