@@ -174,7 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
         options.forEach(option => {
             const btn = document.createElement('button');
             btn.classList.add('option');
-            btn.textContent = option.name;
             btn.dataset.id = option.id;
 
             // 옵션 내의 작은 그리드 생성
