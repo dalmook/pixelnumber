@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
     <title>픽셀 넘버 게임</title>
     <link rel="stylesheet" href="style.css">
@@ -18,17 +17,21 @@
     <!-- 게임 화면 -->
     <div id="game-screen" class="screen" style="display: none;">
         <div class="game-container">
-            <div id="problem-counter" class="problem-counter">
-                문제 1 / 3
+            <div class="top-info">
+                <div id="problem-counter" class="problem-counter">
+                    문제 1 / 3
+                </div>
+                <div id="timer" class="timer">
+                    시간: 0초
+                </div>
             </div>
-            <div id="timer" class="timer">
-                시간: 0초
-            </div>
-            <div id="target-number" class="target-number">
-                <!-- 목표 숫자가 여기에 표시됩니다 -->
-            </div>
-            <div id="grid" class="grid">
-                <!-- 격자무늬가 여기에 표시됩니다 -->
+            <div class="main-content">
+                <div id="target-number" class="target-number">
+                    <!-- 목표 숫자가 도트 그리드로 표시됩니다 -->
+                </div>
+                <div id="grid" class="grid">
+                    <!-- 메인 그리드가 여기에 표시됩니다 -->
+                </div>
             </div>
             <div id="options" class="options">
                 <!-- 옵션들이 여기에 표시됩니다 -->
