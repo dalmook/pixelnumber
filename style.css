@@ -1,0 +1,248 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.game-container {
+    max-width: 800px;
+    width: 90%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.start-button, .submit-button, .next-button, .restart-button, .hint-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.start-button:hover, .submit-button:hover, .next-button:hover, .restart-button:hover, .hint-button:hover {
+    background-color: #45a049;
+}
+
+.hint-button {
+    background-color: #2196F3;
+}
+
+.hint-button:hover {
+    background-color: #1976D2;
+}
+
+.problem-counter {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.timer {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.target-number {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(5, 60px);
+    gap: 5px;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.cell.active {
+    background-color: #4caf50;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.option {
+    padding: 10px;
+    background-color: #ffcc00;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.option.selected {
+    background-color: #ff9900;
+}
+
+.option:hover {
+    background-color: #ffb300;
+}
+
+.option .option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 15px);
+    grid-template-rows: repeat(5, 15px);
+    gap: 1px;
+    margin-top: 5px;
+}
+
+.option .option-cell {
+    width: 15px;
+    height: 15px;
+    background-color: #e0e0e0;
+}
+
+.option .option-cell.active {
+    background-color: #4caf50;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-item .grid {
+    grid-template-columns: repeat(3, 20px);
+    grid-template-rows: repeat(5, 20px);
+    gap: 2px;
+}
+
+.total-time {
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 40px);
+        grid-template-rows: repeat(5, 40px);
+    }
+
+    .cell {
+        width: 40px;
+        height: 40px;
+    }
+
+    .option .option-grid {
+        grid-template-columns: repeat(3, 10px);
+        grid-template-rows: repeat(5, 10px);
+    }
+
+    .option .option-cell {
+        width: 10px;
+        height: 10px;
+    }
+
+    .option {
+        padding: 5px;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .start-button, .submit-button, .next-button, .restart-button, .hint-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(3, 30px);
+        grid-template-rows: repeat(5, 30px);
+    }
+
+    .cell {
+        width: 30px;
+        height: 30px;
+    }
+
+    .option .option-grid {
+        grid-template-columns: repeat(3, 8px);
+        grid-template-rows: repeat(5, 8px);
+    }
+
+    .option .option-cell {
+        width: 8px;
+        height: 8px;
+    }
+
+    .option {
+        padding: 3px;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .start-button, .submit-button, .next-button, .restart-button, .hint-button {
+        width: 100%;
+        padding: 8px 0;
+        font-size: 0.9em;
+    }
+
+    .problem-counter, .timer, .target-number {
+        font-size: 1em;
+    }
+
+    .total-time {
+        font-size: 1em;
+    }
+}
