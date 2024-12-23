@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetPattern = currentProblem.targetPattern;
 
         if (selectedOptions.size === 0) {
-            messageContainer.textContent = '옵션을 선택해주세요.';
+            messageContainer.textContent = '선택해주세요.';
             messageContainer.style.color = 'red';
             return;
         }
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextButton.style.display = 'inline-block';
             }
         } else {
-            messageContainer.textContent = '틀렸습니다. 다시 시도해보세요.';
+            messageContainer.textContent = '틀렸습니다.';
             messageContainer.style.color = 'red';
             return; // 정답이 아니면 다음 문제로 넘어가지 않음
         }
