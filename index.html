@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>픽셀 넘버 게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 시작 화면 -->
+    <div id="start-screen" class="screen">
+        <div class="game-container">
+            <h1>픽셀 넘버 게임</h1>
+            <button id="start-button" class="start-button">시작하기</button>
+        </div>
+    </div>
+
+    <!-- 게임 화면 -->
+    <div id="game-screen" class="screen" style="display: none;">
+        <div class="game-container">
+            <div id="problem-counter" class="problem-counter">
+                문제 1 / 3
+            </div>
+            <div id="timer" class="timer">
+                시간: 0초
+            </div>
+            <div id="target-number" class="target-number">
+                <!-- 목표 숫자가 여기에 표시됩니다 -->
+            </div>
+            <div id="grid" class="grid">
+                <!-- 격자무늬가 여기에 표시됩니다 -->
+            </div>
+            <div id="options" class="options">
+                <!-- 옵션들이 여기에 표시됩니다 -->
+            </div>
+            <div class="controls">
+                <button id="submit" class="submit-button">제출</button>
+                <button id="hint" class="hint-button">힌트</button>
+                <button id="next" class="next-button" style="display: none;">다음 문제</button>
+            </div>
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+
+    <!-- 완료 화면 -->
+    <div id="completion-screen" class="screen" style="display: none;">
+        <div class="game-container">
+            <h1>축하합니다!</h1>
+            <div id="results" class="results">
+                <!-- 결과가 여기에 표시됩니다 -->
+            </div>
+            <div id="total-time" class="total-time">
+                걸린 시간: 0초
+            </div>
+            <button id="restart-button" class="restart-button">처음으로</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
