@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Firebase 초기화
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID"
+        apiKey: "AIzaSyCwVxx0Pxd7poc_zGSp1aY9qfd89bpVUW0",
+        authDomain: "finddalbong.firebaseapp.com",
+        projectId: "finddalbong",
+        storageBucket: "finddalbong.firebasestorage.app",
+        messagingSenderId: "982765399272",
+        appId: "1:982765399272:web:02344ab408272c60e2ad5d"
     };
 
     // Firebase 초기화
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Firebase에 데이터 저장
-        db.collection('scores').add({
+        db.collection('pixelscores').add({
             name: playerName,
             time: totalTime,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leaderboardBody.innerHTML = ''; // 기존 내용 제거
 
         // Firestore에서 상위 10개 점수 가져오기 (시간 기준 오름차순)
-        db.collection('scores')
+        db.collection('pixelscores')
             .orderBy('time', 'asc')
             .limit(10)
             .get()
