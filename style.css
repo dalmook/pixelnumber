@@ -259,6 +259,9 @@ h1 {
 }
 
 @media (max-width: 480px) {
+    .game-container {
+        min-height: 90vh; /* 화면의 90% 높이 */
+    }
     .grid {
         grid-template-columns: repeat(3, 20px);
         grid-template-rows: repeat(5, 20px);
