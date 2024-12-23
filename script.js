@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const restartButton = document.getElementById('restart-button');
 
     let gameData = {};
+    let selectedProblems = []; // 무작위로 선택된 문제들
     let currentProblemIndex = 0;
     let selectedOptions = new Set();
     let gridState = [];
@@ -34,17 +35,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 시작 버튼 클릭 시 게임 시작
     startButton.addEventListener('click', () => {
+        if (gameData.problems.length < 3) {
+            alert('문제가 충분하지 않습니다. 최소 3개의 문제가 필요합니다.');
+            return;
+        }
+
         startScreen.style.display = 'none';
         gameScreen.style.display = 'flex';
         currentProblemIndex = 0;
         totalTime = 0;
         startTimer();
+        selectRandomProblems(3); // 3개의 문제를 무작위로 선택
         loadProblem(currentProblemIndex);
     });
 
     // 제출 버튼 클릭 시 정답 확인
     submitButton.addEventListener('click', () => {
-        const currentProblem = gameData.problems[currentProblemIndex];
+        const currentProblem = selectedProblems[currentProblemIndex];
         const targetPattern = currentProblem.targetPattern;
 
         if (selectedOptions.size === 0) {
@@ -70,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 힌트 버튼 클릭 시 힌트 제공
     hintButton.addEventListener('click', () => {
-        const currentProblem = gameData.problems[currentProblemIndex];
+        const currentProblem = selectedProblems[currentProblemIndex];
         const hintOptions = currentProblem.hints;
 
         hintOptions.forEach(optionId => {
@@ -91,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 다음 문제 버튼 클릭 시 다음 문제 로드
     nextButton.addEventListener('click', () => {
         currentProblemIndex++;
-        if (currentProblemIndex < gameData.problems.length) {
+        if (currentProblemIndex < selectedProblems.length) {
             loadProblem(currentProblemIndex);
             messageContainer.textContent = '';
             submitButton.style.display = 'inline-block';
@@ -113,10 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
         startScreen.style.display = 'flex';
     });
 
+    // 무작위로 문제 선택 함수
+    function selectRandomProblems(count) {
+        const shuffled = [...gameData.problems].sort(() => 0.5 - Math.random());
+        selectedProblems = shuffled.slice(0, count);
+    }
+
     // 문제 로드 함수
     function loadProblem(index) {
-        const problem = gameData.problems[index];
-        problemCounter.textContent = `문제 ${index + 1} / ${gameData.problems.length}`;
+        const problem = selectedProblems[index];
+        problemCounter.textContent = `문제 ${index + 1} / ${selectedProblems.length}`;
         targetNumberContainer.textContent = `목표 숫자: ${problem.targetNumber}`;
         createGrid(problem.grid.rows, problem.grid.columns);
         createOptions(problem.options);
@@ -151,8 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // 옵션 내의 작은 그리드 생성
             const optionGrid = document.createElement('div');
             optionGrid.classList.add('option-grid');
-            for (let r = 1; r <= gameData.problems[currentProblemIndex].grid.rows; r++) {
-                for (let c = 1; c <= gameData.problems[currentProblemIndex].grid.columns; c++) {
+            for (let r = 1; r <= selectedProblems[currentProblemIndex].grid.rows; r++) {
+                for (let c = 1; c <= selectedProblems[currentProblemIndex].grid.columns; c++) {
                     const optionCell = document.createElement('div');
                     optionCell.classList.add('option-cell');
                     if (option.cells.some(coord => coord[0] === r && coord[1] === c)) {
@@ -170,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 옵션 선택/해제 함수
     function toggleOption(optionId) {
-        const problem = gameData.problems[currentProblemIndex];
+        const problem = selectedProblems[currentProblemIndex];
         const option = problem.options.find(opt => opt.id === optionId);
         const button = document.querySelector(`.option[data-id="${optionId}"]`);
         if (selectedOptions.has(optionId)) {
@@ -204,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cell) {
                 // 다른 선택된 옵션에 의해 색칠되었는지 확인
                 let isActive = false;
-                gameData.problems[currentProblemIndex].options.forEach(opt => {
+                selectedProblems[currentProblemIndex].options.forEach(opt => {
                     if (selectedOptions.has(opt.id)) {
                         opt.cells.forEach(c => {
                             if (c[0] === row && c[1] === col) {
@@ -257,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 결과 표시 함수
     function displayResults() {
         resultsContainer.innerHTML = '';
-        gameData.problems.forEach((problem, index) => {
+        selectedProblems.forEach((problem, index) => {
             const resultItem = document.createElement('div');
             resultItem.classList.add('result-item');
 
