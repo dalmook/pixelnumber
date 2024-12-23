@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gridContainer = document.getElementById('grid');
     const optionsContainer = document.getElementById('options');
     const submitButton = document.getElementById('submit');
-    const hintButton = document.getElementById('hint');
+    const initialButton = document.getElementById('initial-button'); // 변경된 버튼 ID
     const nextButton = document.getElementById('next');
     const messageContainer = document.getElementById('message');
     const problemCounter = document.getElementById('problem-counter');
@@ -69,30 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
             return; // 정답이 아니면 다음 문제로 넘어가지 않음
         }
 
-        // 제출 후 옵션 비활성화
+        // 제출 후 버튼 비활성화
         submitButton.style.display = 'none';
-        hintButton.style.display = 'none';
+        initialButton.style.display = 'none';
         nextButton.style.display = 'inline-block';
     });
 
-    // 힌트 버튼 클릭 시 힌트 제공
-    hintButton.addEventListener('click', () => {
-        const currentProblem = selectedProblems[currentProblemIndex];
-        const hintOptions = currentProblem.hints;
+    // "처음으로" 버튼 클릭 시 시작 화면으로 돌아가기
+    initialButton.addEventListener('click', () => {
+        // 타이머 정지
+        stopTimer();
 
-        hintOptions.forEach(optionId => {
-            if (!selectedOptions.has(optionId)) {
-                toggleOption(optionId);
-            }
-        });
+        // 게임 화면과 완료 화면 숨기기
+        gameScreen.style.display = 'none';
+        completionScreen.style.display = 'none';
 
-        messageContainer.textContent = '힌트를 사용했습니다!';
-        messageContainer.style.color = 'blue';
-
-        // 힌트 버튼 비활성화 (힌트를 한 번만 사용하도록 설정)
-        hintButton.disabled = true;
-        hintButton.style.opacity = '0.6';
-        hintButton.style.cursor = 'not-allowed';
+        // 시작 화면 보이기
+        startScreen.style.display = 'flex';
     });
 
     // 다음 문제 버튼 클릭 시 다음 문제 로드
@@ -102,10 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadProblem(currentProblemIndex);
             messageContainer.textContent = '';
             submitButton.style.display = 'inline-block';
-            hintButton.style.display = 'inline-block';
-            hintButton.disabled = false;
-            hintButton.style.opacity = '1';
-            hintButton.style.cursor = 'pointer';
+            initialButton.style.display = 'inline-block';
             nextButton.style.display = 'none';
         } else {
             // 모든 문제가 끝났을 때 완료 화면으로 이동
@@ -291,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultItem.classList.add('result-item');
 
             const problemTitle = document.createElement('h2');
-            problemTitle.textContent = `문제 ${index + 1}: 목표 숫자 ${problem.targetNumber}`;
+            problemTitle.textContent = `문제 ${index + 1}: 목표 알파벳 ${problem.targetLetter}`;
             resultItem.appendChild(problemTitle);
 
             const resultGrid = document.createElement('div');
