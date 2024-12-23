@@ -1,4 +1,4 @@
-/* Custom Styles */
+/* 기존 스타일 유지 */
 @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gamja+Flower&family=Gowun+Dodum&display=swap');
 
 body {
@@ -13,20 +13,44 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
+}
+
+#start-screen {
+    /* 배경 이미지 설정 */
+    background-image: url('images/background.jpg'); /* 이미지 경로를 실제 경로로 변경하세요 */
+    background-size: cover; /* 이미지를 화면에 꽉 채우기 */
+    background-position: center; /* 이미지를 중앙에 위치 */
+    background-repeat: no-repeat; /* 이미지 반복 방지 */
+    position: relative; /* 오버레이를 위한 위치 설정 */
+}
+
+/* 오버레이 추가 (선택 사항) */
+#start-screen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정색 오버레이 */
+    z-index: 1;
 }
 
 .game-container {
+    position: relative; /* 오버레이 위에 표시되도록 */
+    z-index: 2; /* 오버레이보다 위에 표시 */
     max-width: 800px;
     width: 90%;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8); /* 반투명 흰색 배경 */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h1 {
     margin-bottom: 20px;
+    color: #333; /* 텍스트 색상 조정 */
 }
 
 .start-button, .submit-button, .next-button, .restart-button, .initial-button {
@@ -80,25 +104,25 @@ h1 {
 
 .target-number {
     display: grid;
-    grid-template-columns: repeat(3, 15px);
-    grid-template-rows: repeat(5, 15px);
+    grid-template-columns: repeat(4, 10px);
+    grid-template-rows: repeat(5, 10px);
     gap: 3px;
 }
 
 .target-number .dot {
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: #e0e0e0;
 }
 
 .target-number .dot.active {
-    background-color: #000; /* 검정색으로 표시 */
+    background-color: #4caf50;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 60px);
+    grid-template-columns: repeat(4, 60px);
     grid-template-rows: repeat(5, 60px);
     gap: 5px;
     justify-content: center;
@@ -126,10 +150,8 @@ h1 {
 }
 
 .option {
-    padding: 2vh; /* 내부 여백을 화면 높이에 비례하여 설정 */
-    height: 15vh; /* 높이를 화면 높이에 비례하여 설정 */
-    font-size: 1em; /* 필요에 따라 폰트 크기 조정 */    
-    background-color: #f9f9f9; /* 배경색을 밝은 회색으로 변경 */
+    padding: 5px;
+    background-color: #ffcc00;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -138,16 +160,16 @@ h1 {
 }
 
 .option.selected {
-    background-color: #e6e6e6; /* 선택 시 더 진한 회색 */
+    background-color: #ff9900;
 }
 
 .option:hover {
-    background-color: #e6e6e6; /* 호버 시 밝은 회색 */
+    background-color: #ffb300;
 }
 
 .option .option-grid {
     display: grid;
-    grid-template-columns: repeat(3, 8px);
+    grid-template-columns: repeat(4, 8px);
     grid-template-rows: repeat(5, 8px);
     gap: 1px;
     margin-top: 5px;
@@ -190,7 +212,7 @@ h1 {
 }
 
 .result-item .grid {
-    grid-template-columns: repeat(3, 20px);
+    grid-template-columns: repeat(4, 20px);
     grid-template-rows: repeat(5, 20px);
     gap: 2px;
 }
@@ -209,18 +231,87 @@ h1 {
     flex: 1;
     max-width: 150px;
 }
-.adsense-container {
-    width: 100%;
-    max-width: 728px; /* 광고 최대 너비 설정 */
-    margin: 20px auto; /* 중앙 정렬 및 상하 마진 설정 */
+
+/* 팝업 스타일 */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* 반투명 검정색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 다른 요소들보다 위에 표시 */
 }
-/* 반응형 디자인 */
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#player-name {
+    width: 80%;
+    padding: 10px;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-name-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.submit-name-button:hover {
+    background-color: #45a049;
+}
+
+/* Leaderboard 테이블 스타일 */
+#leaderboard {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#leaderboard th, #leaderboard td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#leaderboard th {
+    background-color: #f2f2f2;
+}
+
+#leaderboard tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* 반응형 디자인 유지 */
 @media (max-width: 768px) {
-    .adsense-container {
-        max-width: 100%; /* 모바일에서는 전체 너비 사용 */
-    }
     .grid {
-        grid-template-columns: repeat(3, 40px);
+        grid-template-columns: repeat(4, 40px);
         grid-template-rows: repeat(5, 40px);
     }
 
@@ -230,7 +321,7 @@ h1 {
     }
 
     .option .option-grid {
-        grid-template-columns: repeat(3, 5px);
+        grid-template-columns: repeat(4, 5px);
         grid-template-rows: repeat(5, 5px);
     }
 
@@ -249,13 +340,13 @@ h1 {
     }
 
     .target-number {
-        grid-template-columns: repeat(3, 10px);
-        grid-template-rows: repeat(5, 10px);
+        grid-template-columns: repeat(4, 5px);
+        grid-template-rows: repeat(5, 5px);
     }
 
     .target-number .dot {
-        width: 10px;
-        height: 10px;
+        width: 5px;
+        height: 5px;
     }
 
     .controls {
@@ -281,6 +372,7 @@ h1 {
         grid-template-columns: repeat(3, 20px);
         grid-template-rows: repeat(5, 20px);
     }
+
     .cell {
         width: 20px;
         height: 20px;
@@ -301,6 +393,7 @@ h1 {
         width: 10px;
         height: 10px;
     }
+
     .main-content {
         flex-direction: column;
         align-items: center;
@@ -315,7 +408,6 @@ h1 {
         width: 5px;
         height: 5px;
     }
-
     .controls {
         flex-direction: row;
         flex-wrap: nowrap;
