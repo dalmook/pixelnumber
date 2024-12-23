@@ -25,6 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer = null;
     let totalTime = 0; // 총 걸린 시간 (초)
 
+    // Fisher-Yates 알고리즘을 사용한 배열 섞기 함수
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
     // 데이터 로드
     fetch('data.json')
         .then(response => response.json())
@@ -158,10 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 옵션 생성 함수 (옵션 이름 제거)
+    // 옵션 생성 함수 (옵션 이름 제거 및 섞기 추가)
     function createOptions(options) {
         optionsContainer.innerHTML = '';
-        options.forEach(option => {
+        // 옵션 배열을 섞기
+        const shuffledOptions = shuffleArray([...options]);
+
+        shuffledOptions.forEach(option => {
             const btn = document.createElement('button');
             btn.classList.add('option');
             // btn.textContent = option.name; // 옵션 이름 제거
