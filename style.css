@@ -29,7 +29,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-.start-button, .submit-button, .next-button, .restart-button, .hint-button {
+.start-button, .submit-button, .next-button, .restart-button, .initial-button {
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
@@ -41,15 +41,15 @@ h1 {
     transition: background-color 0.3s;
 }
 
-.start-button:hover, .submit-button:hover, .next-button:hover, .restart-button:hover, .hint-button:hover {
+.start-button:hover, .submit-button:hover, .next-button:hover, .restart-button:hover, .initial-button:hover {
     background-color: #45a049;
 }
 
-.hint-button {
+.initial-button {
     background-color: #2196F3;
 }
 
-.hint-button:hover {
+.initial-button:hover {
     background-color: #1976D2;
 }
 
@@ -263,7 +263,7 @@ h1 {
         justify-content: center;
     }
 
-    .submit-button, .hint-button {
+    .submit-button, .initial-button {
         width: 45%; /* 버튼 너비 조정 */
         padding: 8px 0;
         font-size: 0.9em;
@@ -323,7 +323,7 @@ h1 {
         margin-top: 20px; /* 버튼들을 아래로 내리기 */
     }
 
-    .submit-button, .hint-button {
+    .submit-button, .initial-button {
         width: 45%; /* 버튼 너비 조정 */
         padding: 8px 0;
         font-size: 0.9em;
