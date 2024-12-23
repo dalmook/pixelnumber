@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Firebase 초기화
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    // Firebase 초기화
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
     const startScreen = document.getElementById('start-screen');
     const gameScreen = document.getElementById('game-screen');
     const completionScreen = document.getElementById('completion-screen');
@@ -16,6 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('results');
     const totalTimeDisplay = document.getElementById('total-time');
     const restartButton = document.getElementById('restart-button');
+
+    // 팝업 관련 요소
+    const namePopup = document.getElementById('name-popup');
+    const closeButton = document.querySelector('.close-button');
+    const submitNameButton = document.getElementById('submit-name');
+    const playerNameInput = document.getElementById('player-name');
 
     let gameData = {};
     let selectedProblems = []; // 무작위로 선택된 문제들
@@ -64,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetPattern = currentProblem.targetPattern;
 
         if (selectedOptions.size === 0) {
-            messageContainer.textContent = '선택해주세요.';
+            messageContainer.textContent = '옵션을 선택해주세요.';
             messageContainer.style.color = 'red';
             return;
         }
@@ -72,8 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (comparePatterns(gridState, targetPattern)) {
             messageContainer.textContent = '정답입니다!';
             messageContainer.style.color = 'green';
+            // 정답 시 이름 입력 팝업 표시
+            showNamePopup();
         } else {
-            messageContainer.textContent = '틀렸습니다.';
+            messageContainer.textContent = '틀렸습니다. 다시 시도해보세요.';
             messageContainer.style.color = 'red';
             return; // 정답이 아니면 다음 문제로 넘어가지 않음
         }
@@ -121,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 무작위로 문제 선택 함수
     function selectRandomProblems(count) {
-        const shuffled = [...gameData.problems].sort(() => 0.5 - Math.random());
+        const shuffled = shuffleArray([...gameData.problems]);
         selectedProblems = shuffled.slice(0, count);
     }
 
@@ -277,41 +299,102 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(timer);
     }
 
+    // 이름 입력 팝업 표시 함수
+    function showNamePopup() {
+        namePopup.style.display = 'flex';
+    }
+
+    // 팝업 닫기 버튼 클릭 시
+    closeButton.addEventListener('click', () => {
+        namePopup.style.display = 'none';
+        showCompletionScreen();
+    });
+
+    // 이름 제출 버튼 클릭 시
+    submitNameButton.addEventListener('click', () => {
+        const playerName = playerNameInput.value.trim();
+        if (playerName === '') {
+            alert('이름을 입력해주세요.');
+            return;
+        }
+
+        // Firebase에 데이터 저장
+        db.collection('scores').add({
+            name: playerName,
+            time: totalTime,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+            namePopup.style.display = 'none';
+            showCompletionScreen();
+        })
+        .catch(error => {
+            console.error('데이터 저장 오류:', error);
+            alert('이름을 제출하는 데 문제가 발생했습니다. 다시 시도해주세요.');
+        });
+    });
+
+    // 팝업 외부 클릭 시 닫기
+    window.addEventListener('click', (event) => {
+        if (event.target == namePopup) {
+            namePopup.style.display = 'none';
+            showCompletionScreen();
+        }
+    });
+
     // 완료 화면 표시 함수
     function showCompletionScreen() {
         gameScreen.style.display = 'none';
         completionScreen.style.display = 'flex';
-        displayResults();
+        displayLeaderboard();
         totalTimeDisplay.textContent = `걸린 시간: ${totalTime}초`;
     }
 
-    // 결과 표시 함수
-    function displayResults() {
-        resultsContainer.innerHTML = '';
-        selectedProblems.forEach((problem, index) => {
-            const resultItem = document.createElement('div');
-            resultItem.classList.add('result-item');
+    // 리더보드 표시 함수
+    function displayLeaderboard() {
+        const leaderboardBody = document.querySelector('#leaderboard tbody');
+        leaderboardBody.innerHTML = ''; // 기존 내용 제거
 
-            const problemTitle = document.createElement('h2');
-            problemTitle.textContent = `문제 ${index + 1}`;
-            resultItem.appendChild(problemTitle);
+        // Firestore에서 상위 10개 점수 가져오기 (시간 기준 오름차순)
+        db.collection('scores')
+            .orderBy('time', 'asc')
+            .limit(10)
+            .get()
+            .then((querySnapshot) => {
+                let rank = 1;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = document.createElement('tr');
 
-            const resultGrid = document.createElement('div');
-            resultGrid.classList.add('grid');
+                    const rankCell = document.createElement('td');
+                    rankCell.textContent = rank;
+                    row.appendChild(rankCell);
 
-            problem.targetPattern.forEach(row => {
-                row.forEach(cell => {
-                    const gridCell = document.createElement('div');
-                    gridCell.classList.add('cell');
-                    if (cell === 1) {
-                        gridCell.classList.add('active');
-                    }
-                    resultGrid.appendChild(gridCell);
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = data.name;
+                    row.appendChild(nameCell);
+
+                    const timeCell = document.createElement('td');
+                    timeCell.textContent = data.time;
+                    row.appendChild(timeCell);
+
+                    leaderboardBody.appendChild(row);
+                    rank++;
                 });
-            });
 
-            resultItem.appendChild(resultGrid);
-            resultsContainer.appendChild(resultItem);
-        });
+                // 만약 점수가 없으면 메시지 표시
+                if (querySnapshot.empty) {
+                    const row = document.createElement('tr');
+                    const noDataCell = document.createElement('td');
+                    noDataCell.colSpan = 3;
+                    noDataCell.textContent = '아직 점수가 없습니다.';
+                    row.appendChild(noDataCell);
+                    leaderboardBody.appendChild(row);
+                }
+            })
+            .catch((error) => {
+                console.error('리더보드 불러오기 오류:', error);
+                alert('리더보드를 불러오는 데 문제가 발생했습니다.');
+            });
     }
 });
