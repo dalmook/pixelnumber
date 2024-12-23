@@ -90,7 +90,7 @@ h1 {
 }
 
 .target-number .dot.active {
-    background-color: #4caf50;
+    background-color: #000; /* 검정색으로 표시 */
 }
 
 .grid {
@@ -126,7 +126,7 @@ h1 {
     padding: 2vh; /* 내부 여백을 화면 높이에 비례하여 설정 */
     height: 15vh; /* 높이를 화면 높이에 비례하여 설정 */
     font-size: 1em; /* 필요에 따라 폰트 크기 조정 */    
-    background-color: #ffcc00;
+    background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -135,11 +135,11 @@ h1 {
 }
 
 .option.selected {
-    background-color: #ff9900;
+    background-color: #d3d3d3; /* 선택 시 더 진한 회색 */
 }
 
 .option:hover {
-    background-color: #ffb300;
+    background-color: #e6e6e6; /* 호버 시 밝은 회색 */
 }
 
 .option .option-grid {
