@@ -30,7 +30,7 @@ h1 {
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    margin: 10px;
+    margin: 5px;
     border: none;
     border-radius: 5px;
     background-color: #4caf50;
@@ -77,14 +77,14 @@ h1 {
 
 .target-number {
     display: grid;
-    grid-template-columns: repeat(3, 20px);
-    grid-template-rows: repeat(5, 20px);
-    gap: 5px;
+    grid-template-columns: repeat(3, 15px);
+    grid-template-rows: repeat(5, 15px);
+    gap: 3px;
 }
 
 .target-number .dot {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     background-color: #e0e0e0;
 }
@@ -117,13 +117,13 @@ h1 {
 
 .options {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     gap: 10px;
     margin-bottom: 20px;
 }
 
 .option {
-    padding: 10px;
+    padding: 5px;
     background-color: #ffcc00;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -142,15 +142,15 @@ h1 {
 
 .option .option-grid {
     display: grid;
-    grid-template-columns: repeat(3, 5px);
-    grid-template-rows: repeat(5, 5px);
+    grid-template-columns: repeat(3, 8px);
+    grid-template-rows: repeat(5, 8px);
     gap: 1px;
     margin-top: 5px;
 }
 
 .option .option-cell {
-    width: 5px;
-    height: 5px;
+    width: 8px;
+    height: 8px;
     background-color: #e0e0e0;
 }
 
@@ -195,6 +195,16 @@ h1 {
     margin-top: 20px;
 }
 
+/* 버튼 한 줄로 표시 */
+.controls {
+    flex-wrap: nowrap;
+}
+
+.controls button {
+    flex: 1;
+    max-width: 150px;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     .grid {
@@ -208,13 +218,13 @@ h1 {
     }
 
     .option .option-grid {
-        grid-template-columns: repeat(3, 3px);
-        grid-template-rows: repeat(5, 3px);
+        grid-template-columns: repeat(3, 5px);
+        grid-template-rows: repeat(5, 5px);
     }
 
     .option .option-cell {
-        width: 3px;
-        height: 3px;
+        width: 5px;
+        height: 5px;
     }
 
     .option {
@@ -227,13 +237,13 @@ h1 {
     }
 
     .target-number {
-        grid-template-columns: repeat(3, 15px);
-        grid-template-rows: repeat(5, 15px);
+        grid-template-columns: repeat(3, 10px);
+        grid-template-rows: repeat(5, 10px);
     }
 
     .target-number .dot {
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
     }
 
     .controls {
@@ -241,8 +251,10 @@ h1 {
         justify-content: center;
     }
 
-    .start-button, .submit-button, .next-button, .restart-button, .hint-button {
-        width: auto;
+    .submit-button, .hint-button {
+        width: 45%; /* 버튼 너비 조정 */
+        padding: 8px 0;
+        font-size: 0.9em;
     }
 }
 
@@ -277,23 +289,23 @@ h1 {
     }
 
     .target-number {
-        grid-template-columns: repeat(3, 10px);
-        grid-template-rows: repeat(5, 10px);
+        grid-template-columns: repeat(3, 5px);
+        grid-template-rows: repeat(5, 5px);
     }
 
     .target-number .dot {
-        width: 10px;
-        height: 10px;
+        width: 5px;
+        height: 5px;
     }
 
     .controls {
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: center;
     }
 
-    .start-button, .submit-button, .next-button, .restart-button, .hint-button {
-        width: 45%;
+    .submit-button, .hint-button {
+        width: 45%; /* 버튼 너비 조정 */
         padding: 8px 0;
         font-size: 0.9em;
     }
