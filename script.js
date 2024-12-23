@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Firebase 초기화
     const firebaseConfig = {
-        apiKey: "AIzaSyCwVxx0Pxd7poc_zGSp1aY9qfd89bpVUW0",
-        authDomain: "finddalbong.firebaseapp.com",
-        projectId: "finddalbong",
-        storageBucket: "finddalbong.firebasestorage.app",
-        messagingSenderId: "982765399272",
-        appId: "1:982765399272:web:02344ab408272c60e2ad5d"
+      apiKey: "AIzaSyCwVxx0Pxd7poc_zGSp1aY9qfd89bpVUW0",
+      authDomain: "finddalbong.firebaseapp.com",
+      projectId: "finddalbong",
+      storageBucket: "finddalbong.firebasestorage.app",
+      messagingSenderId: "982765399272",
+      appId: "1:982765399272:web:02344ab408272c60e2ad5d"
     };
 
     // Firebase 초기화
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gridContainer = document.getElementById('grid');
     const optionsContainer = document.getElementById('options');
     const submitButton = document.getElementById('submit');
-    const initialButton = document.getElementById('initial-button'); // 변경된 버튼 ID
+    const initialButton = document.getElementById('initial-button');
     const nextButton = document.getElementById('next');
     const messageContainer = document.getElementById('message');
     const problemCounter = document.getElementById('problem-counter');
@@ -92,18 +92,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (comparePatterns(gridState, targetPattern)) {
             messageContainer.textContent = '정답입니다!';
             messageContainer.style.color = 'green';
-            // 정답 시 이름 입력 팝업 표시
-            showNamePopup();
+
+            // 마지막 문제인지 확인
+            if (currentProblemIndex === selectedProblems.length - 1) {
+                // 마지막 문제라면 이름 입력 팝업 표시
+                showNamePopup();
+            } else {
+                // 마지막 문제가 아니라면 다음 문제로 이동할 수 있도록 'next' 버튼 표시
+                submitButton.style.display = 'none';
+                initialButton.style.display = 'none';
+                nextButton.style.display = 'inline-block';
+            }
         } else {
             messageContainer.textContent = '틀렸습니다. 다시 시도해보세요.';
             messageContainer.style.color = 'red';
             return; // 정답이 아니면 다음 문제로 넘어가지 않음
         }
-
-        // 제출 후 버튼 비활성화
-        submitButton.style.display = 'none';
-        initialButton.style.display = 'none';
-        nextButton.style.display = 'inline-block';
     });
 
     // "처음으로" 버튼 클릭 시 시작 화면으로 돌아가기
@@ -150,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 문제 로드 함수
     function loadProblem(index) {
         const problem = selectedProblems[index];
-        problemCounter.textContent = `문제 ${index + 1}`;
+        problemCounter.textContent = `문제 ${index + 1} / ${selectedProblems.length}`;
         targetNumberContainer.textContent = ''; // 텍스트 제거
         createTargetNumberGrid(problem.targetPattern);
         createGrid(problem.grid.rows, problem.grid.columns);
@@ -319,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Firebase에 데이터 저장
-        db.collection('pixelscores').add({
+        db.collection('scores').add({
             name: playerName,
             time: totalTime,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -356,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leaderboardBody.innerHTML = ''; // 기존 내용 제거
 
         // Firestore에서 상위 10개 점수 가져오기 (시간 기준 오름차순)
-        db.collection('pixelscores')
+        db.collection('scores')
             .orderBy('time', 'asc')
             .limit(10)
             .get()
