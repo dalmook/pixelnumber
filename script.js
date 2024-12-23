@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 문제 로드 함수
     function loadProblem(index) {
         const problem = selectedProblems[index];
-        problemCounter.textContent = `문제 ${index + 1} / ${selectedProblems.length}`;
+        problemCounter.textContent = `문제 ${index + 1}`;
         targetNumberContainer.textContent = ''; // 텍스트 제거
         createTargetNumberGrid(problem.targetPattern);
         createGrid(problem.grid.rows, problem.grid.columns);
