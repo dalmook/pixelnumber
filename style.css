@@ -1,5 +1,8 @@
+/* Custom Styles */
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gamja+Flower&family=Gowun+Dodum&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Gowun Dodum", sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
@@ -206,9 +209,16 @@ h1 {
     flex: 1;
     max-width: 150px;
 }
-
+.adsense-container {
+    width: 100%;
+    max-width: 728px; /* 광고 최대 너비 설정 */
+    margin: 20px auto; /* 중앙 정렬 및 상하 마진 설정 */
+}
 /* 반응형 디자인 */
 @media (max-width: 768px) {
+    .adsense-container {
+        max-width: 100%; /* 모바일에서는 전체 너비 사용 */
+    }
     .grid {
         grid-template-columns: repeat(3, 40px);
         grid-template-rows: repeat(5, 40px);
@@ -261,7 +271,9 @@ h1 {
 }
 
 @media (max-width: 480px) {
-
+    .adsense-container {
+        max-width: 100%; /* 모바일에서는 전체 너비 사용 */
+    }
     .game-container {
         min-height: 80vh; /* 화면의 90% 높이 */
     }
