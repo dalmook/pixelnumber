@@ -266,26 +266,26 @@ h1 {
         grid-template-columns: repeat(3, 20px);
         grid-template-rows: repeat(5, 20px);
     }
-
     .cell {
         width: 20px;
         height: 20px;
     }
 
+    .option {
+        padding: 10px; /* 보기의 내부 여백 증가 */
+        height: 120px; /* 보기의 높이 증가 */
+        font-size: 1em; /* 텍스트 크기 조정 */
+    }
+
     .option .option-grid {
-        grid-template-columns: repeat(3, 4px);
-        grid-template-rows: repeat(5, 4px);
+        grid-template-columns: repeat(3, 10px); /* 내부 셀 크기 증가 */
+        grid-template-rows: repeat(5, 10px);
     }
 
     .option .option-cell {
-        width: 4px;
-        height: 4px;
+        width: 10px;
+        height: 10px;
     }
-
-    .option {
-        padding: 3px;
-    }
-
     .main-content {
         flex-direction: column;
         align-items: center;
@@ -305,6 +305,7 @@ h1 {
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: center;
+        margin-top: 20px; /* 버튼들을 아래로 내리기 */
     }
 
     .submit-button, .hint-button {
