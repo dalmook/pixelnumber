@@ -1,9 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+    background-color: #fffbf0;
+    max-width: 800px; /* PC 화면에서의 최대 너비 */    
+    min-height: 100vh; /* 최소 높이를 뷰포트 높이로 설정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 10px; /* 작은 여백 추가 */
 }
 
 .screen {
