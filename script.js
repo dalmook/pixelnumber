@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Firebase에 데이터 저장
-        db.collection('scores').add({
+        db.collection('pixelscores').add({
             name: playerName,
             time: totalTime,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leaderboardBody.innerHTML = ''; // 기존 내용 제거
 
         // Firestore에서 상위 10개 점수 가져오기 (시간 기준 오름차순)
-        db.collection('scores')
+        db.collection('pixelscores')
             .orderBy('time', 'asc')
             .limit(10)
             .get()
