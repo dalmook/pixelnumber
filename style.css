@@ -280,13 +280,13 @@ h1 {
     }
 
     .option .option-grid {
-        grid-template-columns: repeat(3, 10px); /* 내부 셀 크기 증가 */
-        grid-template-rows: repeat(5, 10px);
+        grid-template-columns: repeat(3, 5px); /* 내부 셀 크기 증가 */
+        grid-template-rows: repeat(5, 5px);
     }
 
     .option .option-cell {
-        width: 10px;
-        height: 10px;
+        width: 5px;
+        height: 5px;
     }
     .main-content {
         flex-direction: column;
