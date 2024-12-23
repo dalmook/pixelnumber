@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultItem.classList.add('result-item');
 
             const problemTitle = document.createElement('h2');
-            problemTitle.textContent = `문제 ${index + 1}: 목표 알파벳 ${problem.targetLetter}`;
+            problemTitle.textContent = `문제 ${index + 1}`;
             resultItem.appendChild(problemTitle);
 
             const resultGrid = document.createElement('div');
