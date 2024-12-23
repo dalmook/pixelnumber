@@ -131,10 +131,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const problem = selectedProblems[index];
         problemCounter.textContent = `문제 ${index + 1} / ${selectedProblems.length}`;
         targetNumberContainer.textContent = `목표 숫자: ${problem.targetNumber}`;
+        createTargetNumberGrid(problem.targetPattern);
         createGrid(problem.grid.rows, problem.grid.columns);
         createOptions(problem.options);
         selectedOptions.clear();
         messageContainer.textContent = '';
+    }
+
+    // 목표 숫자 도트 그리드 생성 함수
+    function createTargetNumberGrid(targetPattern) {
+        targetNumberContainer.innerHTML = ''; // 기존 내용을 지웁니다.
+        targetPattern.forEach(row => {
+            row.forEach(cell => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (cell === 1) {
+                    dot.classList.add('active');
+                }
+                targetNumberContainer.appendChild(dot);
+            });
+        });
     }
 
     // 그리드 생성 함수
@@ -158,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         options.forEach(option => {
             const btn = document.createElement('button');
             btn.classList.add('option');
-            // btn.textContent = option.name;
+            btn.textContent = option.name;
             btn.dataset.id = option.id;
 
             // 옵션 내의 작은 그리드 생성
