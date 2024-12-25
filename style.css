@@ -313,6 +313,23 @@ h1 {
     max-width: 728px; /* 광고 최대 너비 설정 */
     margin: 10px auto; /* 중앙 정렬 및 상하 마진 설정 */
 }
+
+@media (min-width: 1024px) {
+    .adsense-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        max-width: 728px;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    body {
+        padding-top: 90px; /* 광고 높이만큼 상단 여백 추가 */
+    }
+}
+
 /* 반응형 디자인 유지 */
 @media (max-width: 768px) {
     .grid {
