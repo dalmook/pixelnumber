@@ -326,8 +326,8 @@ h1 {
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    body {
-        padding-top: 90px; /* 광고 높이만큼 상단 여백 추가 */
+    .screen {
+        margin-top: 100px; /* 더 큰 화면에서는 더 많이 이동 */
     }
 }
 
