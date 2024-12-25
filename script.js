@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Firebase 초기화
     const firebaseConfig = {
-      apiKey: "AIzaSyCwVxx0Pxd7poc_zGSp1aY9qfd89bpVUW0",
-      authDomain: "finddalbong.firebaseapp.com",
-      projectId: "finddalbong",
-      storageBucket: "finddalbong.firebasestorage.app",
-      messagingSenderId: "982765399272",
-      appId: "1:982765399272:web:02344ab408272c60e2ad5d"
-    };
+        apiKey: "AIzaSyCwVxx0Pxd7poc_zGSp1aY9qfd89bpVUW0",
+        authDomain: "finddalbong.firebaseapp.com",
+        projectId: "finddalbong",
+        storageBucket: "finddalbong.firebasestorage.app",
+        messagingSenderId: "982765399272",
+        appId: "1:982765399272:web:02344ab408272c60e2ad5d"
+      };
 
     // Firebase 초기화
     firebase.initializeApp(firebaseConfig);
@@ -69,10 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // 기존 타이머가 실행 중이면 정지하고 초기화
+        stopTimer();
+        totalTime = 0;
+        timerDisplay.textContent = `시간: ${totalTime}초`;
+
         startScreen.style.display = 'none';
         gameScreen.style.display = 'flex';
         currentProblemIndex = 0;
-        totalTime = 0;
         startTimer();
         selectRandomProblems(3); // 3개의 문제를 무작위로 선택
         loadProblem(currentProblemIndex);
@@ -112,8 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // "처음으로" 버튼 클릭 시 시작 화면으로 돌아가기
     initialButton.addEventListener('click', () => {
-        // 타이머 정지
+        // 타이머 정지 및 초기화
         stopTimer();
+        totalTime = 0;
+        timerDisplay.textContent = `시간: ${totalTime}초`;
 
         // 게임 화면과 완료 화면 숨기기
         gameScreen.style.display = 'none';
@@ -141,6 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 재시작 버튼 클릭 시 처음 화면으로 돌아가기
     restartButton.addEventListener('click', () => {
+        // 타이머 정지 및 초기화
+        stopTimer();
+        totalTime = 0;
+        timerDisplay.textContent = `시간: ${totalTime}초`;
+
+        // 완료 화면 숨기기
         completionScreen.style.display = 'none';
         startScreen.style.display = 'flex';
     });
@@ -154,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 문제 로드 함수
     function loadProblem(index) {
         const problem = selectedProblems[index];
-        problemCounter.textContent = `문제 ${index + 1} / ${selectedProblems.length}`;
+        problemCounter.textContent = `문제 ${index + 1}`;
         targetNumberContainer.textContent = ''; // 텍스트 제거
         createTargetNumberGrid(problem.targetPattern);
         createGrid(problem.grid.rows, problem.grid.columns);
@@ -292,6 +304,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 타이머 시작 함수
     function startTimer() {
+        // 기존 타이머가 실행 중이면 정지
+        stopTimer();
         timer = setInterval(() => {
             totalTime++;
             timerDisplay.textContent = `시간: ${totalTime}초`;
@@ -300,7 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 타이머 정지 함수
     function stopTimer() {
-        clearInterval(timer);
+        if (timer !== null) {
+            clearInterval(timer);
+            timer = null;
+        }
     }
 
     // 이름 입력 팝업 표시 함수
@@ -323,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Firebase에 데이터 저장
-        db.collection('pixelscores').add({
+        db.collection('scores').add({
             name: playerName,
             time: totalTime,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -360,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leaderboardBody.innerHTML = ''; // 기존 내용 제거
 
         // Firestore에서 상위 10개 점수 가져오기 (시간 기준 오름차순)
-        db.collection('pixelscores')
+        db.collection('scores')
             .orderBy('time', 'asc')
             .limit(10)
             .get()
