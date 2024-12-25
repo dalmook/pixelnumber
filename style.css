@@ -311,7 +311,7 @@ h1 {
 .adsense-container {
     width: 100%;
     max-width: 728px; /* 광고 최대 너비 설정 */
-    margin: 20px auto; /* 중앙 정렬 및 상하 마진 설정 */
+    margin: 10px auto; /* 중앙 정렬 및 상하 마진 설정 */
 }
 /* 반응형 디자인 유지 */
 @media (max-width: 768px) {
