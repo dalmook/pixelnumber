@@ -316,18 +316,17 @@ h1 {
 
 @media (min-width: 1024px) {
     .adsense-container {
-        position: fixed;
+        position: fixed; /* 화면 오른쪽에 고정 */
         top: 0;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        max-width: 728px;
-        height: 90px; 
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        right: 0; /* 화면 오른쪽 여백 */
+        width: 300px; /* 광고의 너비 */
+        height: 100vh; /* 화면 전체 높이에 맞춤 */
+        background-color: #f9f9f9; /* 배경색 설정 (필요 시) */
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+        z-index: 1000; /* 다른 요소보다 위에 표시 */
     }
-    .screen {
-        margin-top: 100px; /* 더 큰 화면에서는 더 많이 이동 */
+    body {
+        margin-right: 300px; /* 광고 공간 확보 */
     }
 }
 
