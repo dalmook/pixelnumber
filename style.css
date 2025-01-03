@@ -79,12 +79,14 @@ h1 {
 
 .problem-counter {
     font-size: 1.2em;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    margin-top: 10px;
 }
 
 .timer {
     font-size: 1.2em;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    margin-top: 10px;
 }
 
 .top-info {
